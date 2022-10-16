@@ -21,6 +21,9 @@ func main() {
 
 	}
 	result := make([]urlStatus, len(urls))
+
+	// after fire the async job main immediately take over the control
+	// this isn't help much on performance
 	for i, _ := range result {
 		result[i] = <-c
 		if result[i].status {
@@ -29,7 +32,6 @@ func main() {
 			fmt.Println(result[i].url, "is down !!")
 		}
 	}
-
 }
 
 //checks and prints a message if a website is up or down
