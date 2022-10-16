@@ -16,7 +16,7 @@ var urls = []string{
 
 func checker(urls []string) func() chan urlStatus {
 	wg := &sync.WaitGroup{}
-	c := make(chan urlStatus)
+	c := make(chan urlStatus, 3) // buffer to solve the potential slow consumer issue.
 	for _, url := range urls {
 		wg.Add(1)
 		go checkUrl(url, c, wg)
